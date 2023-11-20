@@ -61,7 +61,7 @@ posts.forEach(element => {
 
 
     if (element.author.image == null){
-        element.author.image ="https://unsplash.it/600/400?image=29" ;
+        element.author.image ="https://thumbs.dreamstime.com/b/standard-user-icon-set-men-women-multiple-people-89394526.jpg" ;
     }
     document.getElementById("container").innerHTML += `
         <div class="post">
@@ -72,7 +72,7 @@ posts.forEach(element => {
                     </div>
                     <div class="post-meta__data">
                         <div class="post-meta__author">${element.author.name}</div>
-                        <div class="post-meta__time">${element.created}</div>
+                        <div class="post-meta__time">${convertDate(element.created)}</div>
                     </div>                    
                 </div>
             </div>
@@ -95,11 +95,46 @@ posts.forEach(element => {
             </div>            
         </div> 
     `
-/*     document.getElementById(`like-counter-${element.id}`).addEventListener("toggle", function(){
-        this.element.classList.add("like-button--liked");
-        
 
-    }) */
     
 });
 
+
+let likesButton = document.getElementsByClassName("like-button");
+let likesCounter = document.getElementsByClassName("js-likes-counter");
+
+for (let i = 0; i<likesButton.length; i++){
+
+    const btn = likesButton[i];
+    const counter = likesCounter[i];
+
+    btn.addEventListener("click", function(){
+
+        
+        const likeNumber = parseInt(counter.innerText);
+
+        if (btn.classList.contains("like-button--liked")) {
+
+            btn.classList.remove("like-button--liked");
+            counter.innerText = likeNumber - 1;
+        } else {
+    
+
+            btn.classList.add("like-button--liked");
+            counter.innerText = likeNumber + 1;
+        }
+
+
+
+
+
+    })
+
+
+
+}
+
+
+function convertDate(date) {
+    return date.split("-").reverse().join("-");
+}
